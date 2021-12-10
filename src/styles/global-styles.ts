@@ -8,11 +8,12 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
     width: 100%;
     display:flex;
+    padding: 2%;
     
   }
 
   body {
-font-family: 'Raleway', sans-serif;
+  font-family: 'Raleway', sans-serif;
   }
 
   #root {
@@ -22,7 +23,7 @@ font-family: 'Raleway', sans-serif;
 
   p,
   label {
-    font-family: Georgia, Times, 'Times New Roman', serif;
+font-family: 'Raleway', sans-serif;
     line-height: 1.5em;
   }
 

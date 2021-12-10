@@ -1,4 +1,4 @@
-import { Title } from 'app/components/NotFoundPage/Title';
+import { P, Title } from 'app/components/Styled';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 
@@ -9,7 +9,8 @@ export function HomePage() {
         <title>HomePage</title>
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
-      <Title>This is DODO!</Title>
+      <Title>Hi there 👋 This is DODO</Title>
+      <P>This page is very first version of my homepage</P>
     </>
   );
 }
