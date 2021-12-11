@@ -1,6 +1,6 @@
 ### Hi there 👋 This is DODO
 
-🏠 homepage being built : [dodo4114.xyz](dodo4114.xyz)
+🏠 homepage being built : [dodo4114.xyz](https://dodo4114.xyz)
 
 <!--
 **dodo4114/dodo4114** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
