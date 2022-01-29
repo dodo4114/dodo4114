@@ -4,8 +4,11 @@ import {
   Highlight,
   SemiTitle,
   P,
+  RowContainer,
 } from 'app/components/Styled';
+import styled from 'styled-components';
 import { Helmet } from 'react-helmet-async';
+import Room from './Room';
 
 export function HomePage() {
   const todoList = [
@@ -21,10 +24,17 @@ export function HomePage() {
         <title>HomePage</title>
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
-      <Title>
-        Hi there 👋 This is <Highlight>DODO</Highlight>
-      </Title>
-      <SubTitle>This page is the very first version of my homepage</SubTitle>
+      <Container>
+        <TitleContainer>
+          <Title>
+            Hi there 👋 This is <Highlight>DODO</Highlight>
+          </Title>
+          <SubTitle>
+            This page is the very first version of my homepage
+          </SubTitle>
+        </TitleContainer>
+        <Room />
+      </Container>
       <SemiTitle>TODO</SemiTitle>
       {todoList.map(value => (
         <P key={value}>- {value}</P>
@@ -32,3 +42,10 @@ export function HomePage() {
     </>
   );
 }
+
+const Container = styled(RowContainer)``;
+
+const TitleContainer = styled.div`
+  text-align: right;
+  padding: 30px;
+`;

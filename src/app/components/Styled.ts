@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro';
+
 export const P = styled.p`
   font-size: 1rem;
   line-height: 1.5;
@@ -38,4 +39,15 @@ export const Highlight = styled.span`
   background-size: 100% 200%;
   background-position: initial;
   background-color: initial;
+`;
+
+export const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+`;
+
+export const RowContainer = styled(Container)`
+  flex-direction: row;
 `;
