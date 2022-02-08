@@ -11,6 +11,7 @@ export const Title = styled.h1`
   line-height: 1.5;
   color: black;
   margin: 0.625rem 0 1.5rem 0;
+  white-space: pre-wrap;
 `;
 
 export const SubTitle = styled.h2`

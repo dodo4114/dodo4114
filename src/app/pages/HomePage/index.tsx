@@ -9,43 +9,72 @@ import {
 import styled from 'styled-components';
 import { Helmet } from 'react-helmet-async';
 import Room from './Room';
+import { useEffect, useState } from 'react';
+import useWindowDimensions from 'utils/useWindowDimensions';
+import { useScroll } from 'utils/useScroll';
 
 export function HomePage() {
-  const todoList = [
-    "What projects I've done",
-    'Contacts : e-mail, open-kakao, facebook',
-    'Personas : DODO, Do-veloper, Dohyeon Park',
-    'Thoughts : Blog, Object for my life',
-    'Make it 3D/VR + Web3?',
-  ];
+  const {
+    width: windowWidth,
+    height: windowHeight,
+    isMobile,
+  } = useWindowDimensions();
+  const [personaId, setPersonaId] = useState(2);
+
+  const personaList = ['DODO', 'Do-veloper', 'DoHyeon Park'];
+  const { scrollY } = useScroll();
+
+  function setPersona(id) {
+    setPersonaId(id);
+  }
+
+  useEffect(() => {
+    console.log(scrollY);
+    // setPersonaId(id);
+  }, [scrollY]);
+
   return (
     <>
       <Helmet>
         <title>HomePage</title>
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
-      <Container>
+      <Container aria-is-mobile={windowWidth - windowHeight < 600}>
         <TitleContainer>
-          <Title>
-            Hi there 👋 This is <Highlight>DODO</Highlight>
+          <Title aria-is-mobile={isMobile}>
+            Hi there 👋 This is{'\n'}
+            <Highlight aria-is-mobile={isMobile}>
+              {personaList[personaId]}
+            </Highlight>
           </Title>
-          <SubTitle>
+          {/* <SubTitle>
             This page is the very first version of my homepage
-          </SubTitle>
+          </SubTitle> */}
         </TitleContainer>
-        <Room />
+        <Room personaId={personaId} setPersona={setPersona} />
       </Container>
-      <SemiTitle>TODO</SemiTitle>
-      {todoList.map(value => (
-        <P key={value}>- {value}</P>
-      ))}
     </>
   );
 }
 
-const Container = styled(RowContainer)``;
+const Container = styled(RowContainer)`
+  align-self: center;
+  ${p =>
+    p['aria-is-mobile']
+      ? 'flex-direction:column-reverse;   justify-content: flex-start;'
+      : ''}
+
+  ${Title} {
+    ${p => (p['aria-is-mobile'] ? 'font-size: 2rem;' : '')}
+  }
+
+  ${Highlight} {
+    ${p => (p['aria-is-mobile'] ? 'font-size: 3rem;' : '')}
+  }
+`;
 
 const TitleContainer = styled.div`
   text-align: right;
-  padding: 30px;
+  padding: ${p => (p['aria-is-mobile'] ? 0 : 30)}px;
+  margin: 0;
 `;
