@@ -1,32 +1,56 @@
-import * as THREE from 'three';
-import React, { useRef, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import styled from 'styled-components';
-import internal from 'stream';
-import { useFBX, useGLTF, PresentationControls } from '@react-three/drei';
-import Robot from '../objects/Robot.jsx';
+import Oculus from '../objects/Oculus';
+import ProjectLogos from '../objects/ProjectLogos';
+import Bookshelf from '../objects/Bookshelf';
+import Frame from '../objects/Frame';
+import { useSpring, animated, config } from '@react-spring/three';
+
 export default function FirstRoom(props) {
+  const isMerge = props.isMerge;
+  const { opacity } = useSpring({
+    opacity: isMerge ? 0 : 1,
+    config: config.gentle,
+  });
+
+  const grayColor = 'rgba(100,100,100,1)';
   const walls = [0, 1, 2].map((value, index) => {
     let position = [0, 0, 0];
     let size = [2, 2, 2];
     position[index] = -1 + 0.05;
     size[index] = 0.1;
+    const isTheWall = index == 0;
+    const density =
+      isMerge && !isTheWall ? props.angle / ((Math.PI * 2) / 3) : 1;
     return (
-      <mesh position={position}>
+      <animated.mesh position={position}>
         <boxGeometry args={size} />
-        <meshStandardMaterial color={'hotpink'} />
-      </mesh>
+        <animated.meshStandardMaterial
+          opacity={isTheWall ? 1 : opacity}
+          transparent
+          color={isTheWall ? '#3D405B' : grayColor}
+        />
+      </animated.mesh>
     );
   });
 
   return (
     <group {...props}>
       {walls}
-
-      <Robot
-        // position={[2.45, 1.28, -3.61]}
-        scale={[0.2, 0.2, 0.2]}
+      <Oculus
+        position={[-0.65, -0.6, -0.35]}
+        scale={0.0007}
+        rotation={[0, Math.PI / 4, 0]}
       />
+      <ProjectLogos
+        position={[-0.4, 0.7, -0.9]}
+        scale={0.2}
+        rotation={[0, -Math.PI / 2, 0]}
+      />
+      <Bookshelf
+        position={[-0.8, 0, 0]}
+        scale={[0.2, 0.2, 0.2]}
+        rotation={[0, 0, 0]}
+      />
+      <Frame position={[0, 0, -0.9]} />
     </group>
   );
 }
