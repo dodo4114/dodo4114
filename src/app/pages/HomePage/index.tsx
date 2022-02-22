@@ -10,8 +10,12 @@ import styled from 'styled-components';
 import { Helmet } from 'react-helmet-async';
 import CanvasContainer from './CanvasContainer';
 import { useEffect, useState } from 'react';
+import { useControlSlice } from 'app/slices/controlSlice';
+import { selectControl } from 'app/slices/controlSlice/selectors';
 import useWindowDimensions from 'utils/useWindowDimensions';
 import TextTransition, { presets } from 'react-text-transition';
+import { useSelector, useDispatch } from 'react-redux';
+import { Modal } from 'app/components/Modal';
 
 export function HomePage() {
   const {
@@ -25,6 +29,14 @@ export function HomePage() {
   function toggleIsMerge() {
     setIsMerge(!isMerge);
   }
+
+  // ModalControl
+  const dispatch = useDispatch();
+  const control = useSelector(selectControl);
+  const { actions: controlAction } = useControlSlice();
+  const detailModalState = control.detailModalState;
+  const detailShow = detailModalState.isOpen;
+  const detailData = detailModalState.data;
 
   const personaList = [
     { name: 'DODO', description: 'Entrepreneur, Pioneer,\n DOer' },
@@ -73,8 +85,25 @@ export function HomePage() {
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
       <Container aria-is-mobile={windowWidth - windowHeight < 400}>
+        <Modal
+          open={detailShow}
+          onClose={() => {
+            dispatch(controlAction.closeDetailModal());
+          }}
+        >
+          <div></div>
+        </Modal>
         <TitleContainer>
-          <Description>
+          <Description
+            onClick={() => {
+              dispatch(
+                controlAction.setDetailModal({
+                  isOpen: true,
+                  data: { title: 'hi', body: 'bye' },
+                }),
+              );
+            }}
+          >
             Click other room to change,{'\n'}double-click empty space to
             merge/seperate.
           </Description>
@@ -97,8 +126,8 @@ export function HomePage() {
             /> */}
             {personaList[personaId].description}
           </PersonaDescription>
-          <P>This page is still under construction</P>
-          <P>dodo41142727@gmail.com{'\n'}w/</P>
+          <P>CONTACT : dodo41142727@gmail.com</P>
+          <P>This page is still under construction{'\n'}w/</P>
           {supporters}
         </TitleContainer>
         <CanvasContainer
