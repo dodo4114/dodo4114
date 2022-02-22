@@ -18,11 +18,32 @@ export default function Model(props) {
   const loadcomplete = useLoader(GLTFLoader, loadcompleteModel);
   const snu = useLoader(GLTFLoader, snuModel);
   const springcamp = useLoader(GLTFLoader, springcampModel);
+
   return (
     <group {...props}>
-      <primitive object={loadcomplete.scene} scale={0.5} position={[0, 0, 3]} />
-      <primitive object={snu.scene} scale={0.5} position={[1, 0, 3]} />
-      <primitive object={springcamp.scene} position={[3, -3.6, 0]} />
+      <primitive
+        object={loadcomplete.scene}
+        onClick={() => {
+          window.open('https://loadcomplete.com/', '_blank');
+        }}
+        scale={0.5}
+        position={[0, 0, 3]}
+      />
+      <primitive
+        object={snu.scene}
+        scale={0.5}
+        position={[1, 0, 3]}
+        onClick={() => {
+          window.open('https://snu.ac.kr/', '_blank');
+        }}
+      />
+      <primitive
+        object={springcamp.scene}
+        position={[4, -3.6, 0]}
+        onClick={() => {
+          window.open('https://springcamp.co/', '_blank');
+        }}
+      />
     </group>
   );
 }

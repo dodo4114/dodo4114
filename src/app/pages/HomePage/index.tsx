@@ -19,14 +19,25 @@ export function HomePage() {
     height: windowHeight,
     isMobile,
   } = useWindowDimensions();
-  const [personaId, setPersonaId] = useState(2);
+  const [personaId, setPersonaId] = useState(0);
   const [isMerge, setIsMerge] = useState(false);
 
   function toggleIsMerge() {
     setIsMerge(!isMerge);
   }
 
-  const personaList = ['DODO', 'Do-veloper', 'DoHyeon Park'];
+  const personaList = [
+    { name: 'DODO', description: 'Entrepreneur, Pioneer,\n DOer' },
+    {
+      name: 'Do-veloper',
+      description: 'Developer who just do, try, learn and create.',
+    },
+    {
+      name: 'DoHyeon Park',
+      description:
+        'A human being who is very interested in theater, art and novels.',
+    },
+  ];
   function setPersona(id) {
     if (!isMerge) {
       setPersonaId(id);
@@ -63,18 +74,31 @@ export function HomePage() {
       </Helmet>
       <Container aria-is-mobile={windowWidth - windowHeight < 400}>
         <TitleContainer>
+          <Description>
+            Click other room to change,{'\n'}double-click empty space to
+            merge/seperate.
+          </Description>
           <Title aria-is-mobile={isMobile}>
             Hi there 👋{'\n'}This is{'\n'}
             <Highlight aria-is-mobile={isMobile}>
               <HighLightedTextTransition
+                inline
                 aria-is-mobile={isMobile}
-                text={personaList[personaId]}
-                springConfig={presets.wobbly}
+                text={personaList[personaId].name}
+                springConfig={presets.gentle}
               />
             </Highlight>
           </Title>
-          <SubTitle>This page is under building</SubTitle>
-          <p> w/</p>
+          <PersonaDescription>
+            {/* <PersonaDescriptionTransition
+              inline
+              text={personaList[personaId].description}
+              springConfig={presets.gentle}
+            /> */}
+            {personaList[personaId].description}
+          </PersonaDescription>
+          <P>This page is still under construction</P>
+          <P>dodo41142727@gmail.com{'\n'}w/</P>
           {supporters}
         </TitleContainer>
         <CanvasContainer
@@ -89,6 +113,8 @@ export function HomePage() {
 }
 
 const Container = styled(RowContainer)`
+  height: 100vh;
+  width: 100vw;
   padding: 0;
   align-self: center;
   ${p =>
@@ -98,11 +124,22 @@ const Container = styled(RowContainer)`
 
   ${Title} {
     ${p => (p['aria-is-mobile'] ? 'font-size: 2rem;' : '')}
+    width:100%;
   }
 
   ${Highlight} {
     ${p => (p['aria-is-mobile'] ? 'font-size: 3rem;' : '')}
   }
+`;
+
+const TitleContainer = styled.div`
+  text-align: right;
+  padding: ${p => (p['aria-is-mobile'] ? 0 : 30)}px;
+  margin: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+  max-width: 80vh;
 `;
 
 const HighLightedTextTransition = styled(TextTransition)`
@@ -122,13 +159,28 @@ const HighLightedTextTransition = styled(TextTransition)`
   align-self: right;
 `;
 
-const TitleContainer = styled.div`
+const PersonaDescriptionTransition = styled(TextTransition)`
+  font-size: 3rem;
+  line-height: 1.5;
+  color: gray;
+  margin: 0.625rem 0 1.5rem 0;
+  width: 100%;
+  max-width: 600px;
   text-align: right;
-  padding: ${p => (p['aria-is-mobile'] ? 0 : 30)}px;
-  margin: 0;
+  align-self: right;
+  white-space: pre-wrap;
 `;
 
-const Supporter = styled.p`
+const Supporter = styled(P)`
   line-height: 1.5;
   cursor: pointer;
+`;
+
+const Description = styled(P)`
+  white-space: pre-wrap;
+`;
+
+const PersonaDescription = styled(SubTitle)`
+  font-weight: normal;
+  white-space: pre-wrap;
 `;

@@ -2,6 +2,7 @@ import Oculus from '../objects/Oculus';
 import ProjectLogos from '../objects/ProjectLogos';
 import Bookshelf from '../objects/Bookshelf';
 import Frame from '../objects/Frame';
+import Table from '../objects/Table';
 import { useSpring, animated, config } from '@react-spring/three';
 
 export default function FirstRoom(props) {
@@ -24,8 +25,8 @@ export default function FirstRoom(props) {
       <animated.mesh position={position}>
         <boxGeometry args={size} />
         <animated.meshStandardMaterial
-          opacity={isTheWall ? 1 : opacity}
           transparent
+          opacity={isTheWall ? 1 : opacity}
           color={isTheWall ? '#3D405B' : grayColor}
         />
       </animated.mesh>
@@ -45,12 +46,17 @@ export default function FirstRoom(props) {
         scale={0.2}
         rotation={[0, -Math.PI / 2, 0]}
       />
+      <Table position={[0.2, -0.17, -0.4]} />
       <Bookshelf
-        position={[-0.8, 0, 0]}
+        position={[-0.8, 0, -0.1]}
         scale={[0.2, 0.2, 0.2]}
         rotation={[0, 0, 0]}
       />
-      <Frame position={[0, 0, -0.9]} />
+      <Frame
+        position={[-0.9, 0.65, 0.75]}
+        rotation={[0, Math.PI / 2, 0]}
+        scale={0.2}
+      />
     </group>
   );
 }

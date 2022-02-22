@@ -16,9 +16,19 @@ export default function ProjectModels(props) {
   const logo2 = useLoader(GLTFLoader, logo2Model);
   return (
     <group {...props}>
-      <primitive object={logo1.scene} />
+      <primitive
+        object={logo1.scene}
+        onClick={() => {
+          window.open('https://signal.dodo4114.xyz', '_blank');
+        }}
+      />
       {/* starMe */}
-      <primitive object={logo3.scene} />
+      <primitive
+        object={logo3.scene}
+        onClick={() => {
+          window.open('https://starme.site', '_blank');
+        }}
+      />
       {/* 2wsz */}
       <mesh
         onClick={() => {

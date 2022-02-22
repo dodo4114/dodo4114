@@ -5,6 +5,7 @@ export const P = styled.p`
   line-height: 1.5;
   color: black;
   margin: 0.625rem 0 1.5rem 0;
+  white-space: pre-wrap;
 `;
 export const Title = styled.h1`
   font-size: 5rem;
@@ -47,6 +48,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   align-content: center;
+  flex-direction: column;
 `;
 
 export const RowContainer = styled(Container)`

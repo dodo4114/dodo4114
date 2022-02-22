@@ -24,19 +24,24 @@ import { configureAppStore } from 'store/configureStore';
 
 import reportWebVitals from 'reportWebVitals';
 
+import { ThemeProvider } from 'styles/theme/ThemeProvider';
 // Initialize languages
 import './locales/i18n';
+
+console.log('Hey, just come to https://github.com/dodo4114/dodo4114');
 
 const store = configureAppStore();
 const MOUNT_NODE = document.getElementById('root') as HTMLElement;
 
 ReactDOM.render(
   <Provider store={store}>
-    <HelmetProvider>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </HelmetProvider>
+    <ThemeProvider>
+      <HelmetProvider>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </HelmetProvider>
+    </ThemeProvider>
   </Provider>,
   MOUNT_NODE,
 );

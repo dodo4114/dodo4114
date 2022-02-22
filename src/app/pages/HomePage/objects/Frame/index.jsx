@@ -11,7 +11,7 @@ export default function Frame(props) {
     window.open(url, '_blank');
   }
   return (
-    <mesh scale={0.3} {...props} onClick={onClickFrame}>
+    <mesh {...props} onClick={onClickFrame}>
       <meshBasicMaterial attach="material" map={imageMap}>
         {/* <texture
           attach="map"

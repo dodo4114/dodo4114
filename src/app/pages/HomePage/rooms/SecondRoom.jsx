@@ -1,6 +1,7 @@
 import Monitor from '../objects/Monitor';
 import Bookshelf from '../objects/Bookshelf';
 import Robot from '../objects/Robot';
+import Table from '../objects/Table';
 import { useSpring, animated, config } from '@react-spring/three';
 
 export default function FirstRoom(props) {
@@ -42,12 +43,13 @@ export default function FirstRoom(props) {
         scale={[0.3, 0.3, 0.3]}
         rotation={[0, Math.PI / 2, 0]}
       />
+      <Table position={[0.2, -0.17, -0.4]} />
       <Bookshelf
-        position={[-0.8, 0, 0]}
+        position={[-0.8, 0, -0.1]}
         scale={[0.2, 0.2, 0.2]}
         rotation={[0, 0, 0]}
       />
-      <Robot position={[0.5, -0.9, -0.5]} scale={[0.2, 0.2, 0.2]} />
+      <Robot position={[-0.6, -0.9, 0.8]} scale={0.15} />
     </group>
   );
 }

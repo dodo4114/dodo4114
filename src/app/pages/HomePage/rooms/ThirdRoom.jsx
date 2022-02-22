@@ -4,6 +4,7 @@ import Careers from '../objects/Careers';
 import Bookshelf from '../objects/Bookshelf';
 import PaperAndPen from '../objects/PaperAndPen';
 import Cat from '../objects/Cat';
+import Table from '../objects/Table';
 import { useSpring, animated, config } from '@react-spring/three';
 
 export default function FirstRoom(props) {
@@ -48,13 +49,18 @@ export default function FirstRoom(props) {
         rotation={[0, Math.PI / 2, 0]}
       />
       <Bell position={[-0.7, -0.05, -0.4]} scale={[0.2, 0.2, 0.2]} />
-      <Cat position={[-0.5, -0.9, 0.9]} scale={0.1} />
+      <Table position={[0.2, -0.17, -0.4]} />
+      <Cat
+        position={[0.7, -0.9, -0.4]}
+        scale={0.1}
+        rotation={[0, -Math.PI / 2, 0]}
+      />
       <Bookshelf
-        position={[-0.8, 0, 0]}
+        position={[-0.8, 0, -0.1]}
         scale={[0.2, 0.2, 0.2]}
         rotation={[0, 0, 0]}
       />
-      <PaperAndPen scale={0.01} />
+      <PaperAndPen scale={0.01} position={[-0.1, -0.1, -0.1]} />
     </group>
   );
 }

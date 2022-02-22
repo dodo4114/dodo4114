@@ -12,12 +12,18 @@ import {
   ScrollControls,
   useScroll,
 } from '@react-three/drei';
+import { LoadingIndicator } from 'app/components/LoadingIndicator';
+import { Container } from 'app/components/Styled';
 // interface Props {
 //   personaId: number;
 //   setPersona: Function;
 // }
 
 export default function CanvasContainer(props) {
+  const [isLoading, setIsLoading] = useState(true);
+  function stopLoading() {
+    setIsLoading(false);
+  }
   const {
     width: windowWidth,
     height: windowHeight,
@@ -25,12 +31,13 @@ export default function CanvasContainer(props) {
   } = useWindowDimensions();
   const canvasSize = Math.min(windowWidth, windowHeight);
   return (
-    <Container
+    <MainContainer
       id="canvas-container"
       aria-size={canvasSize}
       style={{ overflow: 'hidden' }}
       {...props}
     >
+      {isLoading ? <CenterLoadingIndicator /> : null}
       <Canvas
         // frameloop="demand"
         // flat
@@ -47,24 +54,32 @@ export default function CanvasContainer(props) {
           <PresentationControls
             global
             zoom={0.8}
+            speed={isMobile ? 2 : 1}
             rotation={[Math.PI / 4, -Math.PI / 4, 0]}
             polar={[-Math.PI / 4, Math.PI / 4]}
             azimuth={[-Math.PI / 4, Math.PI / 4]}
           >
-            <Rooms {...props} scale={1.8} />
+            <Rooms {...props} scale={1.8} stopLoading={stopLoading} />
           </PresentationControls>
         </Suspense>
         {/* </ScrollControls> */}
       </Canvas>
-    </Container>
+    </MainContainer>
   );
 }
 
-const Container = styled.div`
+const MainContainer = styled(Container)`
   width: ${p => p['aria-size']}px;
   height: ${p => p['aria-size']}px;
   aspect-ratio: 1;
   background-color: white;
   padding: 0;
   cursor: pointer;
+`;
+
+const CenterLoadingIndicator = styled(LoadingIndicator)`
+  align-self: center;
+  position: relative;
+  top: 50%;
+  /* left: 50%; */
 `;
