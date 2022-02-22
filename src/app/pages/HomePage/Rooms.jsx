@@ -54,6 +54,7 @@ export default function Rooms(props) {
           onClick={() => {
             onClickRoom(0);
           }}
+          openModal={props.openModal}
         />
       </animated.group>
       <animated.group position={groupPosition} rotation={second}>
@@ -63,6 +64,7 @@ export default function Rooms(props) {
           onClick={() => {
             onClickRoom(1);
           }}
+          openModal={props.openModal}
         />
       </animated.group>
       <animated.group position={groupPosition} rotation={third}>
@@ -72,6 +74,7 @@ export default function Rooms(props) {
           onClick={() => {
             onClickRoom(2);
           }}
+          openModal={props.openModal}
         />
       </animated.group>
     </group>

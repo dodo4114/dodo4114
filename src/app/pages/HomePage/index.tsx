@@ -38,6 +38,15 @@ export function HomePage() {
   const detailShow = detailModalState.isOpen;
   const detailData = detailModalState.data;
 
+  function openModal(data) {
+    dispatch(
+      controlAction.setDetailModal({
+        isOpen: true,
+        data: data,
+      }),
+    );
+  }
+
   const personaList = [
     { name: 'DODO', description: 'Entrepreneur, Pioneer,\n DOer' },
     {
@@ -90,20 +99,10 @@ export function HomePage() {
           onClose={() => {
             dispatch(controlAction.closeDetailModal());
           }}
-        >
-          <div></div>
-        </Modal>
+          data={detailData}
+        ></Modal>
         <TitleContainer>
-          <Description
-            onClick={() => {
-              dispatch(
-                controlAction.setDetailModal({
-                  isOpen: true,
-                  data: { title: 'hi', body: 'bye' },
-                }),
-              );
-            }}
-          >
+          <Description>
             Click other room to change,{'\n'}double-click empty space to
             merge/seperate.
           </Description>
@@ -135,6 +134,7 @@ export function HomePage() {
           setPersona={setPersona}
           isMerge={isMerge}
           onDoubleClick={toggleIsMerge}
+          openModal={openModal}
         />
       </Container>
     </>

@@ -42,18 +42,25 @@ export default function FirstRoom(props) {
         position={[0.4, 0.2, -0.8]}
         scale={[0.1, -0.1, 0.1]}
         rotation={[0, Math.PI / -2, 0]}
+        openModal={props.openModal}
       />
       <Careers
         position={[-1.2, 0.7, 0]}
         scale={0.1}
         rotation={[0, Math.PI / 2, 0]}
+        openModal={props.openModal}
       />
-      <Bell position={[-0.7, -0.05, -0.4]} scale={[0.2, 0.2, 0.2]} />
+      <Bell
+        position={[-0.7, -0.05, -0.4]}
+        scale={[0.2, 0.2, 0.2]}
+        openModal={props.openModal}
+      />
       <Table position={[0.2, -0.17, -0.4]} />
       <Cat
         position={[0.7, -0.9, -0.4]}
         scale={0.1}
         rotation={[0, -Math.PI / 2, 0]}
+        openModal={props.openModal}
       />
       <Bookshelf
         position={[-0.8, 0, -0.1]}

@@ -9,8 +9,17 @@ import postbox from './postbox.glb';
 export default function Postbox(props) {
   const group = useRef();
   const { nodes, materials } = useGLTF(postbox);
+  function onClickPostBox() {
+    props.openModal({
+      title: 'Contact',
+      body: 'email : dodo41142727@gmail.com\ngithub : dodo4114\ninstagram : dohyeon_1027',
+      modeler: 0,
+      // url: 'http://bit.ly/dodo_resume',
+      // image: stackImg,
+    });
+  }
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null} onClick={onClickPostBox}>
       <mesh
         castShadow
         receiveShadow

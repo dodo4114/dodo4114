@@ -9,6 +9,7 @@ export const initialState: ControlState = {
     data: {
       title: '',
       body: '',
+      modeler: -1,
     },
   },
 };

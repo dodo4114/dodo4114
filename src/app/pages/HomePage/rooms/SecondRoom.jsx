@@ -3,6 +3,7 @@ import Bookshelf from '../objects/Bookshelf';
 import Robot from '../objects/Robot';
 import Table from '../objects/Table';
 import { useSpring, animated, config } from '@react-spring/three';
+import stackImg from './stack.png';
 
 export default function FirstRoom(props) {
   const isMerge = props.isMerge;
@@ -11,6 +12,15 @@ export default function FirstRoom(props) {
     config: config.gentle,
   });
 
+  function onClickMonitor() {
+    props.openModal({
+      title: 'Developer Stack',
+      body: 'My stacks as a developer.\nDjango(DRF), Docker, React, React Native, ThreeJs, Smart Contract via Solidity \n Python, Java, Javascript, Typescript, C#, C++\n and so on. Below is my resume.',
+      url: 'http://bit.ly/dodo_resume',
+      // image: stackImg,
+      modeler: 0,
+    });
+  }
   const grayColor = 'rgba(100,100,100,1)';
 
   const walls = [0, 1, 2].map((value, index) => {
@@ -42,6 +52,7 @@ export default function FirstRoom(props) {
         position={[0.2, 0, -0.4]}
         scale={[0.3, 0.3, 0.3]}
         rotation={[0, Math.PI / 2, 0]}
+        onClick={onClickMonitor}
       />
       <Table position={[0.2, -0.17, -0.4]} />
       <Bookshelf

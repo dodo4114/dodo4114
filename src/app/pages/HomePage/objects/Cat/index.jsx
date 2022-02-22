@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import React, { useRef } from 'react';
 import catModel from './cat_220222.glb';
 import { useGLTF, PresentationControls, useTexture } from '@react-three/drei';
+import catImg from './cat.jpeg';
 export default function Cat(props) {
   const group = useRef();
   const { nodes, materials } = useGLTF(catModel);
@@ -12,8 +13,18 @@ export default function Cat(props) {
   function onClickModel() {
     window.open('https://www.instagram.com/mone__ca__t', '_blank');
   }
+
+  function onClickCat() {
+    props.openModal({
+      title: 'MONE, my cat-bro',
+      body: 'Yeah, I know. He is cute.',
+      url: 'https://www.instagram.com/mone__ca__t',
+      image: catImg,
+      modeler: 0,
+    });
+  }
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null} onClick={onClickCat}>
       <group position={[0, -0.69, 0]}>
         <primitive object={nodes.Bone001} />
         <primitive object={nodes.Bone004} />

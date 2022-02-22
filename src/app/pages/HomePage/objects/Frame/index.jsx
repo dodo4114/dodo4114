@@ -6,10 +6,14 @@ export default function Frame(props) {
   const [imageMap] = useTexture([img]);
 
   function onClickFrame() {
-    const url =
-      'https://opensea.io/assets/0xdf3407636bbf3a015a8e48a079ef7ba49e687fd3/4716/';
-    window.open(url, '_blank');
+    props.openModal({
+      title: 'My PFP NFT',
+      body: 'Recently, I am very interested in NFT. I bought The ghost project nft with belief for its future. You can see my NFT on Opensea via below link.',
+      url: 'https://opensea.io/assets/0xdf3407636bbf3a015a8e48a079ef7ba49e687fd3/4716/',
+      image: img,
+    });
   }
+
   return (
     <mesh {...props} onClick={onClickFrame}>
       <meshBasicMaterial attach="material" map={imageMap}>

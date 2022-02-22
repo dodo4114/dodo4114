@@ -15,7 +15,18 @@ import {
   Modal as MU_Modal,
   Theme,
 } from '@material-ui/core';
-import { Fade } from '@mui/material';
+import { Fade, Button } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useControlSlice } from 'app/slices/controlSlice';
+import { selectControl } from 'app/slices/controlSlice/selectors';
+import useWindowDimensions from 'utils/useWindowDimensions';
+import TextTransition, { presets } from 'react-text-transition';
+import { useSelector, useDispatch } from 'react-redux';
+import { Title } from '../Title';
+import { P } from '../P';
+import { TextButton } from '../TextButton';
+import { Container } from '../Styled';
+
 interface Props {
   open: boolean;
   onClose: any;
@@ -24,6 +35,7 @@ interface Props {
   footer?: React.ReactNode;
   dialogClassName?: string;
   size?: 'sm' | 'lg' | 'xl' | undefined;
+  data: any;
 }
 
 export function Modal(props: Props) {
@@ -35,6 +47,30 @@ export function Modal(props: Props) {
   // function handleClose(){
   //   setShow(false)
   // }
+
+  // ModalControl
+  const dispatch = useDispatch();
+  const control = useSelector(selectControl);
+  const { actions: controlAction } = useControlSlice();
+  const detailModalState = control.detailModalState;
+  const detailShow = detailModalState.isOpen;
+  const detailData = props.data;
+
+  const supportersList = ['soh22_archive', 'yeahwon__zip'];
+  function onClickSupporter(value) {
+    window.open('https://www.instagram.com/' + value, '_blank');
+  }
+
+  const designer =
+    detailData.modeler >= 0 ? (
+      <Supporter
+        onClick={() => {
+          onClickSupporter(supportersList[detailData.modeler]);
+        }}
+      >
+        designed by @{supportersList[detailData.modeler]}
+      </Supporter>
+    ) : null;
 
   return (
     <MU_Modal
@@ -49,15 +85,31 @@ export function Modal(props: Props) {
       }}
     >
       <Fade in={props.open}>
-        <Div>{props.children}</Div>
+        <Div>
+          <Title>{detailData.title}</Title>
+          {detailData.image ? <ModalImage src={detailData.image} /> : null}
+          <P>{detailData.body}</P>
+          {props.children}
+          {detailData.url ? (
+            <Button
+              onClick={() => {
+                window.open(detailData.url, '_blank');
+              }}
+            >
+              Go Detail Site
+            </Button>
+          ) : null}
+          {designer}
+        </Div>
       </Fade>
     </MU_Modal>
   );
 }
 
-const Div = styled.div`
+const Div = styled(Container)`
   width: 80%;
   height: 80%;
+  padding: 5%;
   background-color: white;
   background-size: cover;
   border-style: none;
@@ -82,3 +134,15 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
+
+const Supporter = styled(P)`
+  line-height: 1.5;
+  cursor: pointer;
+`;
+
+const ModalImage = styled.img`
+  width: 30%;
+  height: 30%;
+  aspect-ratio: 1;
+  object-fit: contain;
+`;

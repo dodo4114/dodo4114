@@ -10,7 +10,9 @@ import loadcompleteModel from './loadcomplete.glb';
 import springcampModel from './springcamp.glb';
 import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-
+import loadImg from './loadcomplete.png';
+import snuImg from './snu.png';
+import springcampImg from './springcamp.png';
 export default function Model(props) {
   const group = useRef();
   const { nodes, materials } = useGLTF(careerModels);
@@ -19,13 +21,39 @@ export default function Model(props) {
   const snu = useLoader(GLTFLoader, snuModel);
   const springcamp = useLoader(GLTFLoader, springcampModel);
 
+  function onClickLoadcomplete() {
+    props.openModal({
+      title: 'Loadcomplete',
+      body: 'I work for a Game company, Loadcomplete as a NFT TF and data engineer.\nAnd as a army(산업기능요원)',
+      url: 'https://loadcomplete.com',
+      image: loadImg,
+      modeler: 0,
+    });
+  }
+  function onClickSnu() {
+    props.openModal({
+      title: 'Seoul National University',
+      body: '자유전공학부 18학번, 기계공학 컴퓨터공학 전공',
+      url: 'https://snu.ac.kr',
+      image: snuImg,
+      modeler: 0,
+    });
+  }
+  function onClickSpringcamp() {
+    props.openModal({
+      title: 'Springcamp',
+      body: 'I worked for a VC, Springcamp as a Seedseeker',
+      url: 'https://springcamp.co',
+      image: springcampImg,
+
+      modeler: 0,
+    });
+  }
   return (
     <group {...props}>
       <primitive
         object={loadcomplete.scene}
-        onClick={() => {
-          window.open('https://loadcomplete.com/', '_blank');
-        }}
+        onClick={onClickLoadcomplete}
         scale={0.5}
         position={[0, 0, 3]}
       />
@@ -33,16 +61,12 @@ export default function Model(props) {
         object={snu.scene}
         scale={0.5}
         position={[1, 0, 3]}
-        onClick={() => {
-          window.open('https://snu.ac.kr/', '_blank');
-        }}
+        onClick={onClickSnu}
       />
       <primitive
         object={springcamp.scene}
         position={[4, -3.6, 0]}
-        onClick={() => {
-          window.open('https://springcamp.co/', '_blank');
-        }}
+        onClick={onClickSpringcamp}
       />
     </group>
   );

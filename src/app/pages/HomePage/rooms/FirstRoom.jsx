@@ -5,6 +5,10 @@ import Frame from '../objects/Frame';
 import Table from '../objects/Table';
 import { useSpring, animated, config } from '@react-spring/three';
 
+import { useControlSlice } from 'app/slices/controlSlice';
+import { selectControl } from 'app/slices/controlSlice/selectors';
+import { useSelector, useDispatch } from 'react-redux';
+
 export default function FirstRoom(props) {
   const isMerge = props.isMerge;
   const { opacity } = useSpring({
@@ -32,7 +36,6 @@ export default function FirstRoom(props) {
       </animated.mesh>
     );
   });
-
   return (
     <group {...props}>
       {walls}
@@ -45,6 +48,7 @@ export default function FirstRoom(props) {
         position={[-0.4, 0.7, -0.9]}
         scale={0.2}
         rotation={[0, -Math.PI / 2, 0]}
+        openModal={props.openModal}
       />
       <Table position={[0.2, -0.17, -0.4]} />
       <Bookshelf
@@ -56,6 +60,7 @@ export default function FirstRoom(props) {
         position={[-0.9, 0.65, 0.75]}
         rotation={[0, Math.PI / 2, 0]}
         scale={0.2}
+        openModal={props.openModal}
       />
     </group>
   );

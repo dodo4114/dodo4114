@@ -12,4 +12,6 @@ interface ModalData {
   title: string;
   body: string;
   url?: string;
+  modeler?: number;
+  image?: typeof Image;
 }
