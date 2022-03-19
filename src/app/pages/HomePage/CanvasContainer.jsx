@@ -29,7 +29,7 @@ export default function CanvasContainer(props) {
     height: windowHeight,
     isMobile,
   } = useWindowDimensions();
-  const canvasSize = Math.min(windowWidth, windowHeight);
+  const canvasSize = props.canvasSize;
   return (
     <MainContainer
       id="canvas-container"
@@ -70,7 +70,9 @@ export default function CanvasContainer(props) {
 
 const MainContainer = styled(Container)`
   width: ${p => p['aria-size']}px;
+  min-width: ${p => p['aria-size']}px;
   height: ${p => p['aria-size']}px;
+  min-height: ${p => p['aria-size']}px;
   aspect-ratio: 1;
   background-color: white;
   padding: 0;

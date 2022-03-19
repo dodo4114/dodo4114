@@ -68,7 +68,7 @@ export function Modal(props: Props) {
           onClickSupporter(supportersList[detailData.modeler]);
         }}
       >
-        designed by @{supportersList[detailData.modeler]}
+        the model is designed by @{supportersList[detailData.modeler]}
       </Supporter>
     ) : null;
 

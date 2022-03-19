@@ -4,6 +4,7 @@ import {
   Highlight,
   SemiTitle,
   P,
+  Container as ColumnContainer,
   RowContainer,
 } from 'app/components/Styled';
 import styled from 'styled-components';
@@ -16,6 +17,8 @@ import useWindowDimensions from 'utils/useWindowDimensions';
 import TextTransition, { presets } from 'react-text-transition';
 import { useSelector, useDispatch } from 'react-redux';
 import { Modal } from 'app/components/Modal';
+import MediumIcon from './MediumIcon';
+import { Spacer } from 'app/components/Spacer';
 
 export function HomePage() {
   const {
@@ -48,7 +51,11 @@ export function HomePage() {
   }
 
   const personaList = [
-    { name: 'DODO', description: 'Entrepreneur, Pioneer,\n DOer' },
+    {
+      name: 'DODO',
+      description:
+        'Entrepreneur, Pioneer, DOer. Finding my own co-founding members.',
+    },
     {
       name: 'Do-veloper',
       description: 'Developer who just do, try, learn and create.',
@@ -71,29 +78,21 @@ export function HomePage() {
     }
     return <Supporter onClick={onClickSupporter}>@{value}</Supporter>;
   });
-  // let intervalId;
-  // useEffect(() => {
-  //   if (isMerge) {
-  //     intervalId = setInterval(
-  //       () => {
-  //         if (isMerge) {
-  //           setPersonaId((personaId + 1) % 3);
-  //         }
-  //       },
-  //       1000, // every 3 seconds
-  //     );
-  //   } else if (intervalId) {
-  //     clearTimeout(intervalId);
-  //   }
-  // }, [isMerge]);
 
+  const isColumn = windowWidth - windowHeight < 400;
+  const canvasSize = Math.min(
+    Math.max(windowWidth, windowHeight) / 2,
+    windowWidth,
+    windowHeight,
+  );
+  const titleHeight = isColumn ? windowHeight - canvasSize : windowHeight;
   return (
     <>
       <Helmet>
         <title>HomePage</title>
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
-      <Container aria-is-mobile={windowWidth - windowHeight < 400}>
+      <Container aria-is-mobile={isColumn}>
         <Modal
           open={detailShow}
           onClose={() => {
@@ -101,35 +100,41 @@ export function HomePage() {
           }}
           data={detailData}
         ></Modal>
-        <TitleContainer>
-          <Description>
-            Click other room to change,{'\n'}double-click empty space to
-            merge/seperate.
-          </Description>
-          <Title aria-is-mobile={isMobile}>
-            Hi there 👋{'\n'}This is{'\n'}
-            <Highlight aria-is-mobile={isMobile}>
-              <HighLightedTextTransition
-                inline
-                aria-is-mobile={isMobile}
-                text={personaList[personaId].name}
-                springConfig={presets.gentle}
-              />
-            </Highlight>
-          </Title>
-          <PersonaDescription>
-            {/* <PersonaDescriptionTransition
+        <TitleContainerWrapper aria-height={titleHeight}>
+          <TitleContainer aria-height={titleHeight}>
+            <Spacer height={100} />
+            <Description>
+              Click other room to change,{'\n'}double-click empty space to
+              merge/seperate.
+            </Description>
+            <Title aria-is-mobile={isMobile}>
+              Hi there 👋{'\n'}This is{'\n'}
+              <Highlight aria-is-mobile={isMobile}>
+                <HighLightedTextTransition
+                  inline
+                  aria-is-mobile={isMobile}
+                  text={personaList[personaId].name}
+                  springConfig={presets.gentle}
+                />
+              </Highlight>
+            </Title>
+            <PersonaDescription>
+              {/* <PersonaDescriptionTransition
               inline
               text={personaList[personaId].description}
               springConfig={presets.gentle}
             /> */}
-            {personaList[personaId].description}
-          </PersonaDescription>
-          <P>CONTACT : dodo41142727@gmail.com</P>
-          <P>This page is still under construction{'\n'}w/</P>
-          {supporters}
-        </TitleContainer>
+              {personaList[personaId].description}
+            </PersonaDescription>
+            <P>CONTACT : dodo41142727@gmail.com</P>
+            <MediumIcon size={50} />
+            <P>This page is still under construction{'\n'}w/</P>
+            {supporters}
+            <Spacer height={100} />
+          </TitleContainer>
+        </TitleContainerWrapper>
         <CanvasContainer
+          canvasSize={canvasSize}
           personaId={personaId}
           setPersona={setPersona}
           isMerge={isMerge}
@@ -144,6 +149,7 @@ export function HomePage() {
 const Container = styled(RowContainer)`
   height: 100vh;
   width: 100vw;
+  flex: 1;
   padding: 0;
   align-self: center;
   ${p =>
@@ -161,13 +167,21 @@ const Container = styled(RowContainer)`
   }
 `;
 
-const TitleContainer = styled.div`
+const TitleContainerWrapper = styled(ColumnContainer)`
+  flex: 1;
+  height: ${p => p['aria-height']}px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-width: 80vh;
+`;
+const TitleContainer = styled(ColumnContainer)`
   text-align: right;
   padding: ${p => (p['aria-is-mobile'] ? 0 : 30)}px;
   margin: 0;
+  height: ${p => p['aria-height']}px;
   overflow-y: auto;
   overflow-x: hidden;
-  flex: 1;
+  align-items: flex-end;
   max-width: 80vh;
 `;
 
