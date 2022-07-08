@@ -11,6 +11,7 @@ import {
   PresentationControls,
   ScrollControls,
   useScroll,
+  AdaptiveDpr,
 } from '@react-three/drei';
 import { LoadingIndicator } from 'app/components/LoadingIndicator';
 import { Container } from 'app/components/Styled';
@@ -50,7 +51,9 @@ export default function CanvasContainer(props) {
           // distance={0}
           // infinite={true}
         > */}
+
         <Suspense fallback={null}>
+          <AdaptiveDpr pixelated />
           <PresentationControls
             global
             zoom={0.8}

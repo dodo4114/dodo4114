@@ -5,10 +5,6 @@ import Frame from '../objects/Frame';
 import Table from '../objects/Table';
 import { useSpring, animated, config } from '@react-spring/three';
 
-import { useControlSlice } from 'app/slices/controlSlice';
-import { selectControl } from 'app/slices/controlSlice/selectors';
-import { useSelector, useDispatch } from 'react-redux';
-
 export default function FirstRoom(props) {
   const isMerge = props.isMerge;
   const { opacity } = useSpring({
